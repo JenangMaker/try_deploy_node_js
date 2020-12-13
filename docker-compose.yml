@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   node-test-db:
-    image: mongo
+    image: jenangmaker/mongo-test:latest
     restart: always
     container_name: node-test-db
     ports:
@@ -13,7 +13,7 @@ services:
       - node-test-network
 
   node-test-app:
-    image: jenangmaker/node-test-app
+    image: jenangmaker/node-test-app:latest
     build:
       context: .
     container_name: node-test-app

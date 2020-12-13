@@ -14,7 +14,5 @@ jobs:
       name: Build Images Docker
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build -t test_node_js_deploy .
-      - docker images
-      - docker tag test_node_js_deploy $DOCKER_USERNAME/test_node_js_deploy
-      - docker push $DOCKER_USERNAME/test_node_js_deploy
+      - docker-compose build
+      - docker-compose push
