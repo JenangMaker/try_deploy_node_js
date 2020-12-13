@@ -1,18 +1,20 @@
 language: node_js
 node_js:
- - "12"
+  - "12"
 services:
- - docker
+  - docker
+env:
+  - DOCKER_COMPOSE_VERSION=3.8
 jobs:
   include:
     - stage: Tests
       name: Unit Test JS
       script:
-      - npm install
-      - npm test
+        - npm install
+        - npm test
     - stage: Build Docker Image
       name: Build Images Docker
       script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker-compose build
-      - docker-compose push
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker-compose build
+        - docker-compose push
