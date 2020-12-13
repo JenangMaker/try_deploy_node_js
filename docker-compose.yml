@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  node-test-db:
+    image: mongo
+    restart: always
+    container_name: node-test-db
+    ports:
+    - 2375:27017
+    volumes:
+      - node-test-db:/data/db
+    networks:
+      - node-test-network
+
+  node-test-app:
+    image: jenangmaker/node-test-app
+    build:
+      context: .
+    container_name: node-test-app
+    restart: always
+    volumes:
+     - .:/app
+    ports:
+     - "2376:3000"
+    depends_on:
+     - node-test-db
+    environment:
+     - MONGODB_URI=mongodb://node-test-db/node-test-db
+    networks:
+     - node-test-network
+
+volumes:
+  node-test-db:
+    name: node-test-db
+
+networks:
+  node-test-network:
+    name: node-test-network
